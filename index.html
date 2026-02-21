@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBA Rankings Analytics</title>
+    <!-- Tailwind CSS for modern layout and styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        /* Custom scrollbar for the table */
+        .table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+            border-radius: 4px;
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background: #cbd5e0; 
+            border-radius: 4px;
+        }
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-12">
+
+    <!-- Top Navigation Bar -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold shadow-md">
+                    M
+                </div>
+                <h1 class="text-xl font-bold text-slate-800 tracking-tight">MBA Rankings Analytics</h1>
+            </div>
+            <div class="hidden sm:block">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                    Source: U.S. News & World Report
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 space-y-8">
+
+        <!-- Header Section -->
+        <div>
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Frequency Summary (1990–2025)</h2>
+            <p class="text-slate-500 mt-2 text-base max-w-2xl">An interactive analysis of how the top business schools in the U.S. have performed over the last 35 years of rankings data.</p>
+        </div>
+
+        <!-- Summary KPIs -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm flex flex-col justify-center">
+                <span class="text-sm font-medium text-slate-500 uppercase tracking-wider">Years Tracked</span>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <span class="text-4xl font-extrabold text-slate-900">35</span>
+                    <span class="text-sm font-medium text-slate-400">1990-2025</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm flex flex-col justify-center">
+                <span class="text-sm font-medium text-slate-500 uppercase tracking-wider">Schools hitting #1</span>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <span class="text-4xl font-extrabold text-brand-600">5</span>
+                    <span class="text-sm font-medium text-slate-400">Exclusive group</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm flex flex-col justify-center">
+                <span class="text-sm font-medium text-slate-500 uppercase tracking-wider">Total Schools in Top 10</span>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <span class="text-4xl font-extrabold text-slate-900">15</span>
+                    <span class="text-sm font-medium text-slate-400">Consistently ranked</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Chart 1: The Battle for #1 -->
+            <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm flex flex-col">
+                <div class="mb-4">
+                    <h3 class="text-lg font-semibold text-slate-800">The Battle for Rank #1</h3>
+                    <p class="text-sm text-slate-500">Number of years each school held the absolute top spot.</p>
+                </div>
+                <div class="relative flex-grow min-h-[300px] flex items-center justify-center">
+                    <canvas id="rankOneChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 2: Total Top 10 Appearances -->
+            <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm flex flex-col">
+                <div class="mb-4">
+                    <h3 class="text-lg font-semibold text-slate-800">Top 10 Staying Power</h3>
+                    <p class="text-sm text-slate-500">Total number of appearances in the Top 10 over the last 35 years.</p>
+                </div>
+                <div class="relative flex-grow min-h-[300px]">
+                    <canvas id="topTenChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table Section -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50/50">
+                <div>
+                    <h3 class="text-lg font-semibold text-slate-800">Detailed Frequency Matrix</h3>
+                    <p class="text-sm text-slate-500 mt-1">Number of times each school appeared at specific ranks.</p>
+                </div>
+            </div>
+            <div class="overflow-x-auto table-container">
+                <table class="w-full text-sm text-left whitespace-nowrap">
+                    <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Business School</th>
+                            <th scope="col" class="px-4 py-4 font-semibold text-center">#1</th>
+                            <th scope="col" class="px-4 py-4 font-semibold text-center">#2</th>
+                            <th scope="col" class="px-4 py-4 font-semibold text-center">#3</th>
+                            <th scope="col" class="px-4 py-4 font-semibold text-center">#4</th>
+                            <th scope="col" class="px-4 py-4 font-semibold text-center">#5</th>
+                            <th scope="col" class="px-4 py-4 font-semibold text-center">#6</th>
+                            <th scope="col" class="px-4 py-4 font-semibold text-center">#7</th>
+                            <th scope="col" class="px-4 py-4 font-semibold text-center">#8</th>
+                            <th scope="col" class="px-4 py-4 font-semibold text-center">#9</th>
+                            <th scope="col" class="px-4 py-4 font-semibold text-center">#10</th>
+                            <th scope="col" class="px-6 py-4 font-bold text-brand-600 text-center bg-brand-50">Total Top 10</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <!-- Harvard -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Harvard (HBS)</td>
+                            <td class="px-4 py-4 text-center">17</td><td class="px-4 py-4 text-center">8</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
+                        </tr>
+                        <!-- Stanford -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Stanford (GSB)</td>
+                            <td class="px-4 py-4 text-center">19</td><td class="px-4 py-4 text-center">11</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
+                        </tr>
+                        <!-- Wharton -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Wharton</td>
+                            <td class="px-4 py-4 text-center">8</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">17</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
+                        </tr>
+                        <!-- Kellogg -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Kellogg</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">11</td><td class="px-4 py-4 text-center">8</td><td class="px-4 py-4 text-center">7</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
+                        </tr>
+                        <!-- MIT Sloan -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">MIT Sloan</td>
+                            <td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">4</td><td class="px-4 py-4 text-center">12</td><td class="px-4 py-4 text-center">15</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
+                        </tr>
+                        <!-- Chicago Booth -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Chicago Booth</td>
+                            <td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">6</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">9</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center text-slate-300">-</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
+                        </tr>
+                        <!-- Columbia -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Columbia</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">11</td><td class="px-4 py-4 text-center">9</td><td class="px-4 py-4 text-center">2</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">31</td>
+                        </tr>
+                        <!-- Berkeley Haas -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Berkeley Haas</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">18</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">6</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">29</td>
+                        </tr>
+                        <!-- Dartmouth Tuck -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Dartmouth Tuck</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">4</td><td class="px-4 py-4 text-center">6</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">8</td><td class="px-4 py-4 text-center">5</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">28</td>
+                        </tr>
+                        <!-- Michigan Ross -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Michigan Ross</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">4</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">7</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">14</td>
+                        </tr>
+                        <!-- Duke Fuqua -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Duke Fuqua</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">6</td><td class="px-4 py-4 text-center">2</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">13</td>
+                        </tr>
+                        <!-- NYU Stern -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">NYU Stern</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">7</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">11</td>
+                        </tr>
+                        <!-- Yale SOM -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Yale SOM</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">4</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">11</td>
+                        </tr>
+                        <!-- Virginia Darden -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">Virginia Darden</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">4</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">5</td>
+                        </tr>
+                        <!-- UCLA Anderson -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">UCLA Anderson</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">3</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chart Configuration Scripts -->
+    <script>
+        // Set defaults for Chart.js
+        Chart.defaults.font.family = 'Inter, sans-serif';
+        Chart.defaults.color = '#64748b';
+        Chart.defaults.scale.grid.color = '#f1f5f9';
+
+        // Chart 1: The Battle for #1 (Doughnut Chart)
+        const ctx1 = document.getElementById('rankOneChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: ['Stanford (19)', 'Harvard (17)', 'Wharton (8)', 'Chicago Booth (2)', 'MIT Sloan (1)'],
+                datasets: [{
+                    data: [19, 17, 8, 2, 1],
+                    backgroundColor: [
+                        '#0ea5e9', // Stanford (Sky blue)
+                        '#dc2626', // Harvard (Crimson red)
+                        '#1d4ed8', // Wharton (Deep blue)
+                        '#8b5cf6', // Booth (Purple)
+                        '#94a3b8'  // MIT (Slate)
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: { 
+                        position: 'right', 
+                        labels: { 
+                            usePointStyle: true, 
+                            boxWidth: 8,
+                            padding: 20,
+                            font: { size: 13 }
+                        } 
+                    },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.raw} Years at #1`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Top 10 Staying Power (Bar Chart)
+        const ctx2 = document.getElementById('topTenChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Harvard', 'Stanford', 'Wharton', 'Kellogg', 'MIT', 'Booth', 'Columbia', 'Haas', 'Tuck', 'Ross', 'Fuqua', 'Stern', 'Yale'],
+                datasets: [{
+                    label: 'Years in Top 10',
+                    data: [34, 34, 34, 34, 34, 34, 31, 29, 28, 14, 13, 11, 11],
+                    backgroundColor: '#3b82f6',
+                    hoverBackgroundColor: '#1d4ed8',
+                    borderRadius: 4,
+                    barPercentage: 0.7
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { 
+                        beginAtZero: true, 
+                        max: 35,
+                        title: {
+                            display: true,
+                            text: 'Years in Top 10',
+                            font: { size: 12, weight: '500' }
+                        }
+                    },
+                    x: { 
+                        grid: { display: false },
+                        ticks: { maxRotation: 45, minRotation: 45 }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false
+                    }
+                },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutQuart'
+                }
+            }
+        });
+    </script>
+</body>
+</html>
