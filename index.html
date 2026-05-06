@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full-Time MBA Rankings Analytics</title>
+    <title>MBA Rankings Analytics</title>
     <!-- Tailwind CSS for modern layout and styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js for data visualization -->
@@ -55,7 +55,7 @@
                 <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold shadow-md">
                     M
                 </div>
-                <h1 class="text-xl font-bold text-slate-800 tracking-tight">Full-Time MBA Rankings Analytics</h1>
+                <h1 class="text-xl font-bold text-slate-800 tracking-tight">MBA Rankings Analytics</h1>
             </div>
             <div class="hidden sm:block">
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
@@ -69,8 +69,8 @@
 
         <!-- Header Section -->
         <div>
-            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Full-Time MBA Programs: Frequency Summary (1990–2025)</h2>
-            <p class="text-slate-500 mt-2 text-base max-w-2xl">An interactive analysis of how the top full-time business school programs in the U.S. have performed over the last 35 years of rankings data.</p>
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Frequency Summary (1990–2025)</h2>
+            <p class="text-slate-500 mt-2 text-base max-w-2xl">An interactive analysis of how the top business schools in the U.S. have performed over the last 35 years of rankings data.</p>
         </div>
 
         <!-- Summary KPIs -->
@@ -127,7 +127,7 @@
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 lg:p-8">
             <div class="mb-6">
                 <h2 class="text-2xl font-bold text-slate-900 tracking-tight">The "Ultimate" Ranking: 35-Year Data Consensus</h2>
-                <p class="text-slate-500 mt-2 text-base">Based purely on the historical density, peak performance, and rank-retention of the full-time programs from the 1990-2025 dataset, here is the calculated overall hierarchy.</p>
+                <p class="text-slate-500 mt-2 text-base">Based purely on the historical density, peak performance, and rank-retention of the 1990-2025 dataset, here is the calculated overall hierarchy of these programs.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -197,12 +197,45 @@
             </div>
         </div>
 
+        <!-- VC-Backed Founders Section -->
+        <div>
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Venture-Backed Founders by MBA School</h2>
+            <p class="text-slate-500 mt-2 text-base max-w-2xl">Number of VC-backed startup founders per school (Jan 2014 – Sep 2025). Source: <span class="font-medium text-slate-700">PitchBook 2025 MBA Rankings</span>.</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-slate-800">VC-Backed Founders Produced</h3>
+                <p class="text-sm text-slate-500">Founder count, 2014–2025. Note: Harvard leads in number of founders; Stanford leads in total capital raised ($115B vs Harvard's $85B).</p>
+            </div>
+            <div class="relative min-h-[360px]">
+                <canvas id="unicornChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Fortune 1000 C-Suite Section -->
+        <div>
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Fortune 1000 C-Suite Executives by MBA School</h2>
+            <p class="text-slate-500 mt-2 text-base max-w-2xl">Number of <strong>sitting Fortune 1000 CEOs, CFOs, and CIO/CTOs</strong> who hold an MBA from each school. Source: <span class="font-medium text-slate-700">Fortune Education / Poets & Quants, May 2024</span>. This is the most recent rigorous multi-school dataset publicly available — note that no source publishes a true all-time cumulative count.</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-slate-800">F1000 C-Suite Executives Produced (2024)</h3>
+                <p class="text-sm text-slate-500">Harvard leads with 94. Booth and Kellogg are tied at 73 — Kellogg edges Booth on CEO count specifically; Booth leads on CFO count.</p>
+            </div>
+            <div class="relative min-h-[360px]">
+                <canvas id="ceoChart"></canvas>
+            </div>
+            <p class="text-xs text-slate-400 mt-4 italic">Caveat: A 2012 P&Q snapshot of Fortune 500 CEOs only (a narrower measure) showed Harvard 40, Wharton 13, Stanford 10, Booth 7, Kellogg 6 — but is now 13 years stale.</p>
+        </div>
+
         <!-- Data Table Section -->
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50/50">
                 <div>
                     <h3 class="text-lg font-semibold text-slate-800">Detailed Frequency Matrix</h3>
-                    <p class="text-sm text-slate-500 mt-1">Number of times each full-time program appeared at specific ranks.</p>
+                    <p class="text-sm text-slate-500 mt-1">Number of times each school appeared at specific ranks.</p>
                 </div>
             </div>
             <div class="overflow-x-auto table-container">
@@ -326,7 +359,20 @@
         Chart.defaults.font.family = 'Inter, sans-serif';
         Chart.defaults.color = '#64748b';
         Chart.defaults.scale.grid.color = '#f1f5f9';
+        // Use the device's actual pixel ratio so canvas text stays crisp on retina/HiDPI screens
+        Chart.defaults.devicePixelRatio = Math.max(window.devicePixelRatio || 1, 2);
 
+        // Wait for the Inter web font to finish loading before rendering charts.
+        // Chart.js rasterizes text into the canvas exactly once at draw time —
+        // if Inter loads after that, the chart text stays in the fallback font
+        // and looks blurry/inconsistent.
+        const fontsReady = document.fonts && document.fonts.ready
+            ? document.fonts.ready
+            : Promise.resolve();
+
+        fontsReady.then(initCharts);
+
+        function initCharts() {
         // Chart 1: The Battle for #1 (Doughnut Chart)
         const ctx1 = document.getElementById('rankOneChart').getContext('2d');
         new Chart(ctx1, {
@@ -373,6 +419,86 @@
                         }
                     }
                 }
+            }
+        });
+
+        // Chart 3: VC-Backed Founders (Horizontal Bar) — PitchBook 2025
+        const ctx3 = document.getElementById('unicornChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Harvard (HBS)', 'Stanford (GSB)', 'Wharton', 'INSEAD', 'Kellogg'],
+                datasets: [{
+                    label: 'VC-Backed Founders',
+                    data: [1906, 1196, 1153, 922, 815],
+                    backgroundColor: '#10b981',
+                    hoverBackgroundColor: '#059669',
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Number of VC-Backed Founders (2014–2025)', font: { size: 12, weight: '500' } }
+                    },
+                    y: { grid: { display: false } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false,
+                        callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()} founders` }
+                    }
+                },
+                animation: { duration: 1500, easing: 'easeOutQuart' }
+            }
+        });
+
+        // Chart 4: Fortune 1000 C-Suite Executives (Horizontal Bar) — Fortune/P&Q May 2024
+        const ctx4 = document.getElementById('ceoChart').getContext('2d');
+        new Chart(ctx4, {
+            type: 'bar',
+            data: {
+                labels: ['Harvard (HBS)', 'Chicago Booth', 'Kellogg', 'Wharton', 'Columbia', 'Michigan Ross', 'Stanford (GSB)', 'NYU Stern', 'Duke Fuqua', 'WashU Olin'],
+                datasets: [{
+                    label: 'F1000 C-Suite Executives',
+                    data: [94, 73, 73, 56, 39, 33, 25, 21, 20, 19],
+                    backgroundColor: '#8b5cf6',
+                    hoverBackgroundColor: '#7c3aed',
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Number of F1000 C-Suite Executives (2024)', font: { size: 12, weight: '500' } }
+                    },
+                    y: { grid: { display: false } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false,
+                        callbacks: { label: ctx => ` ${ctx.raw} F1000 C-Suite execs` }
+                    }
+                },
+                animation: { duration: 1500, easing: 'easeOutQuart' }
             }
         });
 
@@ -424,6 +550,7 @@
                 }
             }
         });
+        } // end initCharts
     </script>
 </body>
 </html>
