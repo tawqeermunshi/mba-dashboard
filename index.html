@@ -235,14 +235,13 @@
             <div class="p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50/50">
                 <div>
                     <h3 class="text-lg font-semibold text-slate-800">Detailed Frequency Matrix</h3>
-                    <p class="text-sm text-slate-500 mt-1">Number of times each school appeared at each rank, sorted by composite final ranking. Avg &amp; median computed over top-10 appearances only.</p>
+                    <p class="text-sm text-slate-500 mt-1">Number of times each school appeared at each rank, sorted by median rank over top-10 appearances.</p>
                 </div>
             </div>
             <div class="overflow-x-auto table-container">
                 <table class="w-full text-sm text-left whitespace-nowrap">
                     <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200">
                         <tr>
-                            <th scope="col" class="px-4 py-4 font-semibold text-center tracking-wider">Final Rank</th>
                             <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Business School</th>
                             <th scope="col" class="px-4 py-4 font-semibold text-center">#1</th>
                             <th scope="col" class="px-4 py-4 font-semibold text-center">#2</th>
@@ -254,176 +253,115 @@
                             <th scope="col" class="px-4 py-4 font-semibold text-center">#8</th>
                             <th scope="col" class="px-4 py-4 font-semibold text-center">#9</th>
                             <th scope="col" class="px-4 py-4 font-semibold text-center">#10</th>
-                            <th scope="col" class="px-4 py-4 font-semibold text-center bg-emerald-50 text-emerald-700">Avg Rank</th>
-                            <th scope="col" class="px-4 py-4 font-semibold text-center bg-emerald-50 text-emerald-700">Median</th>
+                            <th scope="col" class="px-4 py-4 font-semibold text-center bg-emerald-50 text-emerald-700">Median Rank</th>
                             <th scope="col" class="px-6 py-4 font-bold text-brand-600 text-center bg-brand-50">Total Top 10</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
-                        <!-- #1 Stanford -->
+                        <!-- Stanford — median 1.0 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-amber-400 text-amber-900 font-extrabold text-xs shadow-sm">#1</span>
-                            </td>
-                            <td class="px-6 py-4 font-semibold text-slate-900">Stanford (GSB)</td>
-                            <td class="px-4 py-4 text-center font-medium">19</td><td class="px-4 py-4 text-center font-medium">11</td><td class="px-4 py-4 text-center font-medium">2</td><td class="px-4 py-4 text-center font-medium">2</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">1.6</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">1.0</td>
+                            <td class="px-6 py-4 font-medium text-slate-900">Stanford (GSB)</td>
+                            <td class="px-4 py-4 text-center">19</td><td class="px-4 py-4 text-center">11</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">1.0</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
                         </tr>
-                        <!-- #2 Harvard -->
+                        <!-- Harvard — median 1.5 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-300 text-slate-700 font-extrabold text-xs shadow-sm">#2</span>
-                            </td>
-                            <td class="px-6 py-4 font-semibold text-slate-900">Harvard (HBS)</td>
-                            <td class="px-4 py-4 text-center font-medium">17</td><td class="px-4 py-4 text-center font-medium">8</td><td class="px-4 py-4 text-center font-medium">2</td><td class="px-4 py-4 text-center font-medium">1</td><td class="px-4 py-4 text-center font-medium">3</td><td class="px-4 py-4 text-center font-medium">3</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">2.2</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">1.5</td>
+                            <td class="px-6 py-4 font-medium text-slate-900">Harvard (HBS)</td>
+                            <td class="px-4 py-4 text-center">17</td><td class="px-4 py-4 text-center">8</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">1.5</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
                         </tr>
-                        <!-- #3 Wharton -->
+                        <!-- Wharton — median 3.0 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-amber-700 text-white font-extrabold text-xs shadow-sm">#3</span>
-                            </td>
-                            <td class="px-6 py-4 font-semibold text-slate-900">Wharton</td>
-                            <td class="px-4 py-4 text-center font-medium">8</td><td class="px-4 py-4 text-center font-medium">5</td><td class="px-4 py-4 text-center font-medium">17</td><td class="px-4 py-4 text-center font-medium">3</td><td class="px-4 py-4 text-center font-medium">1</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">2.5</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">3.0</td>
+                            <td class="px-6 py-4 font-medium text-slate-900">Wharton</td>
+                            <td class="px-4 py-4 text-center">8</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">17</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">3.0</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
                         </tr>
-                        <!-- #4 Chicago Booth -->
+                        <!-- Kellogg — median 4.0 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-extrabold text-xs border border-blue-200">#4</span>
-                            </td>
+                            <td class="px-6 py-4 font-medium text-slate-900">Kellogg</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">11</td><td class="px-4 py-4 text-center">8</td><td class="px-4 py-4 text-center">7</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">4.0</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
+                        </tr>
+                        <!-- MIT Sloan — median 4.0 -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">MIT Sloan</td>
+                            <td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">4</td><td class="px-4 py-4 text-center">12</td><td class="px-4 py-4 text-center">15</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">4.0</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
+                        </tr>
+                        <!-- Chicago Booth — median 5.0 -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
                             <td class="px-6 py-4 font-medium text-slate-900">Chicago Booth</td>
                             <td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">6</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">9</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center text-slate-300">-</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">5.0</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">5.0</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">5.0</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
                         </tr>
-                        <!-- #5 Kellogg (tied) -->
+                        <!-- Columbia — median 8.0 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-extrabold text-xs border border-blue-200">#5</span>
-                            </td>
-                            <td class="px-6 py-4 font-medium text-slate-900">Kellogg <span class="text-xs font-normal text-slate-400 ml-1">T-5</span></td>
-                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">11</td><td class="px-4 py-4 text-center">8</td><td class="px-4 py-4 text-center">7</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">4.3</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">4.0</td>
-                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
-                        </tr>
-                        <!-- #5 MIT Sloan (tied) -->
-                        <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-extrabold text-xs border border-blue-200">#5</span>
-                            </td>
-                            <td class="px-6 py-4 font-medium text-slate-900">MIT Sloan <span class="text-xs font-normal text-slate-400 ml-1">T-5</span></td>
-                            <td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">4</td><td class="px-4 py-4 text-center">12</td><td class="px-4 py-4 text-center">15</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">4.1</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">4.0</td>
-                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">34</td>
-                        </tr>
-                        <!-- #7 Columbia -->
-                        <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-violet-100 text-violet-700 font-extrabold text-xs border border-violet-200">#7</span>
-                            </td>
                             <td class="px-6 py-4 font-medium text-slate-900">Columbia</td>
                             <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">11</td><td class="px-4 py-4 text-center">9</td><td class="px-4 py-4 text-center">2</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">7.8</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">8.0</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">8.0</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">31</td>
                         </tr>
-                        <!-- #8 Berkeley Haas -->
+                        <!-- Berkeley Haas — median 8.0 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-violet-100 text-violet-700 font-extrabold text-xs border border-violet-200">#8</span>
-                            </td>
                             <td class="px-6 py-4 font-medium text-slate-900">Berkeley Haas</td>
                             <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">18</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">6</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">8.3</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">8.0</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">8.0</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">29</td>
                         </tr>
-                        <!-- #9 Dartmouth Tuck -->
+                        <!-- Dartmouth Tuck — median 8.0 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-violet-100 text-violet-700 font-extrabold text-xs border border-violet-200">#9</span>
-                            </td>
                             <td class="px-6 py-4 font-medium text-slate-900">Dartmouth Tuck</td>
                             <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">4</td><td class="px-4 py-4 text-center">6</td><td class="px-4 py-4 text-center">5</td><td class="px-4 py-4 text-center">8</td><td class="px-4 py-4 text-center">5</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">8.1</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">8.0</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">8.0</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">28</td>
                         </tr>
-                        <!-- #10 Duke Fuqua (by avg rank) -->
+                        <!-- Duke Fuqua — median 9.0 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-500 font-bold text-xs border border-slate-200">#10</span>
-                            </td>
                             <td class="px-6 py-4 font-medium text-slate-900">Duke Fuqua</td>
                             <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">6</td><td class="px-4 py-4 text-center">2</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">8.5</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">9.0</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">9.0</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">13</td>
                         </tr>
-                        <!-- #11 Yale SOM (by avg rank) -->
+                        <!-- Yale SOM — median 9.0 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-500 font-bold text-xs border border-slate-200">#11</span>
-                            </td>
                             <td class="px-6 py-4 font-medium text-slate-900">Yale SOM</td>
                             <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">3</td><td class="px-4 py-4 text-center">4</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">8.7</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">9.0</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">9.0</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">11</td>
                         </tr>
-                        <!-- #12 Michigan Ross (by avg rank) -->
+                        <!-- Michigan Ross — median 9.5 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-500 font-bold text-xs border border-slate-200">#12</span>
-                            </td>
                             <td class="px-6 py-4 font-medium text-slate-900">Michigan Ross</td>
                             <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">4</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">7</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">8.8</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">9.5</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">9.5</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">14</td>
                         </tr>
-                        <!-- #13 NYU Stern (by avg rank) -->
+                        <!-- NYU Stern — median 10.0 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-500 font-bold text-xs border border-slate-200">#13</span>
-                            </td>
                             <td class="px-6 py-4 font-medium text-slate-900">NYU Stern</td>
                             <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">2</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">7</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">9.0</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">10.0</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">10.0</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">11</td>
                         </tr>
-                        <!-- #14 UCLA Anderson (by avg rank) -->
+                        <!-- Virginia Darden — median 10.0 -->
                         <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-500 font-bold text-xs border border-slate-200">#14</span>
-                            </td>
-                            <td class="px-6 py-4 font-medium text-slate-900">UCLA Anderson</td>
-                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">3</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">9.5</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">10.0</td>
-                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">4</td>
-                        </tr>
-                        <!-- #15 Virginia Darden (by avg rank) -->
-                        <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="px-4 py-4 text-center">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-500 font-bold text-xs border border-slate-200">#15</span>
-                            </td>
                             <td class="px-6 py-4 font-medium text-slate-900">Virginia Darden</td>
                             <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center">4</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">9.8</td>
-                            <td class="px-4 py-4 text-center font-semibold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">10.0</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">10.0</td>
                             <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">5</td>
+                        </tr>
+                        <!-- UCLA Anderson — median 10.0 -->
+                        <tr class="hover:bg-slate-50 transition-colors group">
+                            <td class="px-6 py-4 font-medium text-slate-900">UCLA Anderson</td>
+                            <td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">1</td><td class="px-4 py-4 text-center text-slate-300">-</td><td class="px-4 py-4 text-center">3</td>
+                            <td class="px-4 py-4 text-center font-bold text-emerald-700 bg-emerald-50/60 group-hover:bg-emerald-50">10.0</td>
+                            <td class="px-6 py-4 text-center font-bold text-brand-600 bg-brand-50/50 group-hover:bg-brand-50">4</td>
                         </tr>
                     </tbody>
                 </table>
