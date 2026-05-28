@@ -598,9 +598,9 @@
         <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
             <div class="mb-4">
                 <h3 class="text-lg font-semibold text-slate-800">S&amp;P 500 CEOs Produced</h3>
-                <p class="text-sm text-slate-500">Harvard leads with 38. Kellogg is a clear #2 at 18 — nearly double Booth's 12 — reflecting GSB's outsized placement into operating CEO roles at large public companies.</p>
+                <p class="text-sm text-slate-500">Harvard leads with 38. Kellogg is a clear #2 at 18 — nearly double Booth's 12 — reflecting Kellogg's outsized placement into operating CEO roles at large public companies.</p>
             </div>
-            <div class="relative min-h-[480px]">
+            <div class="relative min-h-[520px]">
                 <canvas id="ceoChart"></canvas>
             </div>
         </div>
@@ -722,13 +722,13 @@
             data: {
                 labels: [
                     'Harvard (HBS)', 'Kellogg', 'Chicago Booth', 'Columbia (CBS)',
-                    'Wharton', 'NYU Stern', 'UCLA Anderson', 'UNC Kenan-Flagler',
+                    'Stanford (GSB)', 'Wharton', 'NYU Stern', 'UCLA Anderson', 'UNC Kenan-Flagler',
                     'SMU Cox', 'ESADE', 'RPI Lally', 'UT Austin (McCombs)',
                     'WashU Olin', 'Michigan Ross', 'CMU Tepper'
                 ],
                 datasets: [{
                     label: 'S&P 500 CEOs',
-                    data: [38, 18, 12, 9, 8, 7, 4, 4, 3, 3, 3, 3, 3, 3, 3],
+                    data: [38, 18, 12, 9, 8, 8, 7, 4, 4, 3, 3, 3, 3, 3, 3, 3],
                     backgroundColor: '#8b5cf6',
                     hoverBackgroundColor: '#7c3aed',
                     borderRadius: 4,
