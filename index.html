@@ -589,18 +589,18 @@
             </div>
         </div>
 
-        <!-- Fortune 1000 C-Suite Section -->
+        <!-- S&P 500 CEO Section -->
         <div>
-            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Fortune 1000 C-Suite Executives by MBA School</h2>
-            <p class="text-slate-500 mt-2 text-base max-w-2xl">Number of <strong>sitting Fortune 1000 CEOs, CFOs, and CIO/CTOs</strong> who hold an MBA from each school. Source: <span class="font-medium text-slate-700">Fortune Education / Poets & Quants, May 2024</span>.</p>
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">S&amp;P 500 CEOs by MBA School</h2>
+            <p class="text-slate-500 mt-2 text-base max-w-2xl">Number of <strong>sitting S&amp;P 500 CEOs</strong> who hold an MBA from each school (programs with 3+ CEOs shown). Source: <span class="font-medium text-slate-700">Leland, via SEC DEF 14A filings, Wikipedia &amp; company IR pages</span>.</p>
         </div>
 
         <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
             <div class="mb-4">
-                <h3 class="text-lg font-semibold text-slate-800">F1000 C-Suite Executives Produced (2024)</h3>
-                <p class="text-sm text-slate-500">Harvard leads with 94. Booth and Kellogg are tied at 73 — Kellogg edges Booth on CEO count specifically; Booth leads on CFO count.</p>
+                <h3 class="text-lg font-semibold text-slate-800">S&amp;P 500 CEOs Produced</h3>
+                <p class="text-sm text-slate-500">Harvard leads with 38. Kellogg is a clear #2 at 18 — nearly double Booth's 12 — reflecting GSB's outsized placement into operating CEO roles at large public companies.</p>
             </div>
-            <div class="relative min-h-[360px]">
+            <div class="relative min-h-[480px]">
                 <canvas id="ceoChart"></canvas>
             </div>
         </div>
@@ -715,15 +715,20 @@
             }
         });
 
-        // Chart 4: Fortune 1000 C-Suite Executives (Horizontal Bar) — Fortune/P&Q May 2024
+        // Chart 4: S&P 500 CEOs by MBA Program — Leland (SEC DEF 14A filings)
         const ctx4 = document.getElementById('ceoChart').getContext('2d');
         new Chart(ctx4, {
             type: 'bar',
             data: {
-                labels: ['Harvard (HBS)', 'Chicago Booth', 'Kellogg', 'Wharton', 'Columbia', 'Michigan Ross', 'Stanford (GSB)', 'NYU Stern', 'Duke Fuqua', 'WashU Olin'],
+                labels: [
+                    'Harvard (HBS)', 'Kellogg', 'Chicago Booth', 'Columbia (CBS)',
+                    'Wharton', 'NYU Stern', 'UCLA Anderson', 'UNC Kenan-Flagler',
+                    'SMU Cox', 'ESADE', 'RPI Lally', 'UT Austin (McCombs)',
+                    'WashU Olin', 'Michigan Ross', 'CMU Tepper'
+                ],
                 datasets: [{
-                    label: 'F1000 C-Suite Executives',
-                    data: [94, 73, 73, 56, 39, 33, 25, 21, 20, 19],
+                    label: 'S&P 500 CEOs',
+                    data: [38, 18, 12, 9, 8, 7, 4, 4, 3, 3, 3, 3, 3, 3, 3],
                     backgroundColor: '#8b5cf6',
                     hoverBackgroundColor: '#7c3aed',
                     borderRadius: 4,
@@ -737,7 +742,7 @@
                 scales: {
                     x: {
                         beginAtZero: true,
-                        title: { display: true, text: 'Number of F1000 C-Suite Executives (2024)', font: { size: 12, weight: '500' } }
+                        title: { display: true, text: 'Number of Sitting S&P 500 CEOs', font: { size: 12, weight: '500' } }
                     },
                     y: { grid: { display: false } }
                 },
@@ -748,7 +753,7 @@
                         padding: 12,
                         cornerRadius: 8,
                         displayColors: false,
-                        callbacks: { label: ctx => ` ${ctx.raw} F1000 C-Suite execs` }
+                        callbacks: { label: ctx => ` ${ctx.raw} S&P 500 CEOs` }
                     }
                 },
                 animation: { duration: 1500, easing: 'easeOutQuart' }
